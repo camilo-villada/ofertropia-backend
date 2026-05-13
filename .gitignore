@@ -1,0 +1,69 @@
+### Java / Maven ###
+target/
+*.class
+
+### Maven Wrapper ###
+.mvn/wrapper/maven-wrapper.jar
+
+### Logs ###
+*.log
+logs/
+
+### OS files ###
+.DS_Store
+Thumbs.db
+
+### IDEs ###
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse / STS
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# VS Code
+.vscode/
+
+### Local env / secrets (NO COMMITEAR) ###
+.env
+.env.*
+!.env.example
+
+**/*secret*
+**/*secrets*
+
+*.pem
+*.key
+*.p12
+*.jks
+*.keystore
+*.cer
+*.crt
+
+### Spring Boot local config overrides ###
+# Mantén application.yml versionado SIN secretos; ignora overrides locales.
+src/main/resources/application-local.yml
+src/main/resources/application-local.yaml
+src/main/resources/application-local.properties
+src/main/resources/application-*.local.yml
+src/main/resources/application-*.local.yaml
+src/main/resources/application-*.local.properties
+
+### Build dirs (Gradle, por si acaso) ###
+build/
