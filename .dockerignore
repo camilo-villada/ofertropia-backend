@@ -1,0 +1,7 @@
+# .dockerignore
+# Ignora archivos y carpetas que no necesitas en la imagen
+/.git/
+*.iml
+*.log
+*.md
+/.idea/
