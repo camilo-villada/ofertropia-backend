@@ -1,4 +1,4 @@
-package com.ofertropria.ofertropia_backend.DTO;
+package com.ofertropria.ofertropia_backend.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +12,8 @@ public class OpportunityRequest {
     @NotBlank(message = "Title is required")
     private String title;
 
+    private String currency;
+
     @NotNull(message = "Price is required")
     private BigDecimal price;
 
@@ -23,4 +25,5 @@ public class OpportunityRequest {
     private Map<String, Object> technicalDetails;
     private Integer subcategoryId;
     private Integer locationId;
+    private Boolean active;
 }

@@ -1,4 +1,4 @@
-package com.ofertropria.ofertropia_backend.model;
+package com.ofertropria.ofertropia_backend.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -14,7 +14,13 @@ import java.util.Map;
 import java.util.UUID;
 
 @Entity
-@Table(name = "opportunities")
+@Table(
+    name = "opportunities",
+    indexes = {
+        @Index(name = "idx_opportunity_active_detected_at", columnList = "is_active, detected_at"),
+        @Index(name = "idx_opportunity_detected_at", columnList = "detected_at")
+    }
+)
 @Getter @Setter 
 @NoArgsConstructor @AllArgsConstructor
 @Builder
@@ -50,9 +56,17 @@ public class Opportunity {
     @Column(name = "technical_details")
     private Map<String, Object> technicalDetails;
 
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(columnDefinition = "jsonb")
+    private Map<String, Object> analysis;
+
+
     @Column(name = "detected_at")
     @Builder.Default
     private LocalDateTime detectedAt = LocalDateTime.now();
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     @Column(name = "is_active")
     @Builder.Default
@@ -63,4 +77,32 @@ public class Opportunity {
 
     @Column(name = "location_id")
     private Integer locationId;
+
+    @PrePersist
+    void onCreate() {
+        LocalDateTime now = LocalDateTime.now();
+
+        if (detectedAt == null) {
+            detectedAt = now;
+        }
+
+        updatedAt = now;
+
+        if (currency == null || currency.isBlank()) {
+            currency = "COP";
+        }
+
+        if (isActive == null) {
+            isActive = true;
+        }
+    }
+
+    @PreUpdate
+    void onUpdate() {
+        updatedAt = LocalDateTime.now();
+
+        if (currency == null || currency.isBlank()) {
+            currency = "COP";
+        }
+    }
 }
